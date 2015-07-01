@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <title>Raphael Play</title>
+        <script type="text/javascript" src="raphael-min.js"></script>
+        
+        <style type="text/css">
+            #canvas_container {
+                width: 1000px;
+                border: 1px solid #aaa;
+            }
+        </style>
+<script>
+window.onload = function() {
+var paper=Raphael(0,0,1000,1000);
+  
+
+
+ /*   function generateChildren(node) {
+    var numChildren = node.length;
+   
+    var px=650,py=650;
+
+
+
+
+     bubble(px,py,node.amount*.6,node.name);
+    
+   var c1y=py-100;
+
+var c1x=px-100;
+
+   bubble(c1x,c1y,node.children[0].amount,node.children[0].name);
+   line(px,py,c1x,c1y);
+   
+   var c2y=py-50;
+ 
+var c2x=px+200;
+
+   bubble(c2x,c2y,node.children[1].amount,node.children[1].name);
+   
+    
+     line(px,py,c2x,c2y);
+    
+   
+}*/
+var j=1;
+function recu(node)
+{
+  if(node.constructor===Array)
+  {
+//console.log("ok");
+var ll=node.length;
+//console.log(node.amount);
+//for(var k=0;k)
+  }
+  else{
+  console.log(node);
+  bubble(node.x,node.y,node.amount*.6,node.name);
+  line(node.x,node.y,node.px,node.py);
+}
+for(var i in node)
+{
+  //j=2;
+  console.log(node[i]);
+  if(node[i].constructor===Array)
+{
+   // var str=;
+   l=node[i].length;
+ //  console.log(l);
+   for(j=0;j<l;j++)
+   {
+    console.log("yes");
+    recu(node[i][j]);
+   }
+   j=j-1;
+    bubble(node[i][j].x,node[i][j].y,node[i][j].amount*.6,node[i][j].name);
+  line(node[i][j].x,node[i][j].y,node[i][j].px,node[i][j].py);
+      
+  // console.log(typeof(node[i]));
+   // str.push(node[i]);
+    
+   // recu(node[i]);
+}
+
+}
+
+}
+
+
+function bubble(x,y,r,t)
+{
+     paper.circle(x,y,r).attr({fill:'blue'});
+    paper.text( x, y, r+'\n'+t);
+}
+function line(x,y,x1,y1)
+{
+  paper.path("M"+x+" "+y+"L"+x1+" "+y1).attr({stroke:'red',"stroke-width":5}).toBack();
+}
+ 
+var jason = '{"name":"parent","amount":100,"x":650,"y":650,"children":[{"name":"child_1","amount":50,"x":500,"y":500,"px":650,"py":650,"children":[{"name":"sub_1","amount":30,"x":400,"y":70,"px":500,"py":500},{"name":"sub_2","amount":50,"x":700,"y":70,"px":500,"py":500}]},{"name":"child_2","amount":40,"x":650,"y":500,"px":650,"py":650}]}';
+ var data = JSON.parse(jason);
+//generateChildren(data);
+recu(data);
+   }
+
+</script>
+
+    </head>
+    <body>
+        <div id="canvas_container"></div>
+
+    </body>
+</html>
