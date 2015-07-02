@@ -1,0 +1,161 @@
+<html>
+    <head>
+        <title>Raphael Play</title>
+        <script type="text/javascript" src="raphael-min.js"></script>
+        
+        <style type="text/css">
+            #canvas_container {
+                width: 1000px;
+                border: 1px solid #aaa;
+            }
+        </style>
+<script>
+window.onload = function() {
+
+var paper=Raphael(0,0,1000,1000);
+  
+var j=1;
+
+function recu(node)
+{
+  
+  /*console.log(node);
+  bubble(node[i].x,node[i].y,node[i].amount*.6,node[i].name);
+  line(node[i].x,node[i].y,node[i].px,node[i].py);*/
+
+for(var i in node)
+{
+   console.log(node[i]);
+  bubble(node[i].x,node[i].y,node[i].amount*.6,node[i].name);
+  line(node[i].x,node[i].y,node[i].px,node[i].py);
+
+  if(node[i].constructor===Array)
+{
+ 
+   l=node[i].length;
+
+  // for(j=0;j<l;j++)
+  // {
+   // console.log(l);
+
+    //recu(node[i][j]);
+
+   //}
+    recu(node[i]); 
+   
+}
+
+//console.log("print bubble");
+}
+
+}
+
+
+function bubble(x,y,r,t)
+{
+     paper.circle(x,y,r).attr({fill:'blue'});
+    paper.text( x, y, r+'\n'+t);
+}
+function line(x,y,x1,y1)
+{
+  paper.path("M"+x+" "+y+"L"+x1+" "+y1).attr({stroke:'red',"stroke-width":5}).toBack();
+}
+ 
+var json = {
+  "name":"parent",
+  "amount":100,
+  "x":650,
+  "y":650,
+ "children":[
+        
+         {
+          
+          "name":"child_1",
+          "amount":50,
+          "x":500,
+          "y":500,
+          "px":650,
+          "py":650,
+  "children":[
+          
+          {
+            "name":"sub_1",
+            "amount":30,
+            "x":400,
+            "y":300,
+            "px":500,
+            "py":500,
+    "children":[
+           {
+               "name":"sub_1_1",
+            "amount":80,
+            "x":200,
+            "y":300,
+            "px":400,
+            "py":300
+
+            }
+                ]
+                       
+          },
+
+          {
+
+            "name":"sub_2",
+            "amount":50,
+            "x":700,
+            "y":300,
+            "px":500,
+            "py":500,
+             "children":[
+           {
+               "name":"sub_2_1",
+            "amount":50,
+            "x":300,
+            "y":300,
+            "px":500,
+            "py":500
+
+            }
+                ]
+   
+   
+          }
+
+          ]
+        },
+
+        {
+          "name":"child_2",
+          "amount":70,
+          "x":250,
+          "y":500,
+          "px":650,
+          "py":650
+        },
+
+        
+        {
+          "name":"child_3",
+          "amount":70,
+          "x":750,
+          "y":500,
+          "px":650,
+          "py":650
+        }
+
+        ]
+      };
+ //var data = JSON.parse(jason);
+//generateChildren(data);
+recu(json);
+   }
+
+</script>
+
+    </head>
+    <body>
+        <div id="canvas_container"></div>
+
+    </body>
+</html>
