@@ -19,31 +19,34 @@ var j=1;
 function recu(node)
 {
   
-  /*console.log(node);
-  bubble(node[i].x,node[i].y,node[i].amount*.6,node[i].name);
-  line(node[i].x,node[i].y,node[i].px,node[i].py);*/
+  console.log(node);
+ /* bubble(node.x,node.y,node.amount*.6,node.name);
+  line(node.x,node.y,node.px,node.py);*/
 
 for(var i in node)
 {
+
    console.log(node[i]);
   bubble(node[i].x,node[i].y,node[i].amount*.6,node[i].name);
   line(node[i].x,node[i].y,node[i].px,node[i].py);
-
-  if(node[i].constructor===Array)
+//console.log(node[i]["children"]);
+  if(node[i]["children"])
 {
- 
+  recu(node[i]["children"])
    l=node[i].length;
 
-  // for(j=0;j<l;j++)
-  // {
-   // console.log(l);
+   for(j=0;j<l;j++)
+  {
+   console.log(l);
 
-    //recu(node[i][j]);
+ // recu(node[i][j]);
 
-   //}
+   }
     recu(node[i]); 
-   
+    
 }
+
+  
 
 //console.log("print bubble");
 }
@@ -61,7 +64,7 @@ function line(x,y,x1,y1)
   paper.path("M"+x+" "+y+"L"+x1+" "+y1).attr({stroke:'red',"stroke-width":5}).toBack();
 }
  
-var json = {
+var json = [{
   "name":"parent",
   "amount":100,
   "x":650,
@@ -94,6 +97,14 @@ var json = {
             "px":400,
             "py":300
 
+            },
+            {
+              "name":"sub_1_2",
+            "amount":55,
+            "x":500,
+            "y":300,
+            "px":400,
+            "py":300
             }
                 ]
                        
@@ -107,17 +118,17 @@ var json = {
             "y":300,
             "px":500,
             "py":500,
-             "children":[
+   "children":[
            {
                "name":"sub_2_1",
             "amount":50,
-            "x":300,
-            "y":300,
-            "px":500,
-            "py":500
+            "x":800,
+            "y":100,
+            "px":700,
+            "py":300
 
             }
-                ]
+             ]
    
    
           }
@@ -131,7 +142,18 @@ var json = {
           "x":250,
           "y":500,
           "px":650,
-          "py":650
+          "py":650,
+    "children":[
+               {
+          "name":"sub_2_1",
+          "amount":35,
+          "x":150,
+          "y":600,
+          "px":250,
+          "py":500,
+                      }
+                ]
+
         },
 
         
@@ -145,10 +167,12 @@ var json = {
         }
 
         ]
-      };
+      }];
  //var data = JSON.parse(jason);
 //generateChildren(data);
 recu(json);
+//paper.getBBox({"x":0,"y":0,"x2":100,"y2":200,"width":100,"height":100});
+
    }
 
 </script>

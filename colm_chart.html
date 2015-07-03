@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <title>Raphael Play</title>
+        <script type="text/javascript" src="raphael-min.js"></script>
+        
+        <style type="text/css">
+            #canvas_container {
+                width: 1000px;
+                border: 1px solid #aaa;
+            }
+        </style>
+<script>
+window.onload = function() {
+
+	var col=
+	       {
+	       	"width":700,
+	       	
+	       	"height":600,
+
+	       	"xAxis":"MONTHS",
+
+	       	"yAxis":"TOTAL ATTENDANCE",
+	       	
+	       	"data":[
+	       	        {
+	       	        	"label":"JAN",
+	       	        	"val":1000000
+	       	        },
+	       	        {
+
+	       	        	"label":"FEB",
+	       	        	"val":1100000
+	       	        },
+	       	        {
+
+	       	        	"label":"MARCH",
+	       	        	"val":1500000
+	       	        },
+	       	        {
+
+	       	        	"label":"APRIL",
+	       	        	"val":8000000
+	       	        },
+	       	        {
+
+	       	        	"label":"MAY",
+	       	        	"val":3000000
+	       	        },
+	       	        {
+	       	        	"label":"JUNE",
+	       	        	"val":1500000
+	       	        },
+	       	        {
+	       	        	"label":"JULY",
+	       	        	"val":1600000
+	       	        }
+	       	       ]
+
+	        };
+	  //console.log(col.data[0].val);    
+	  var l= col.data.length;
+	//  console.log(l);
+	  var max = col.data[0].val;
+	  
+	  for( k=0; k<l; k++)
+	  {
+        if( col.data[k].val> max )
+        	
+        	max = col.data[k].val;
+	  }  
+	 // console.log(max);
+	  var h = col.height;
+
+var paper = Raphael(0,0,col.width+300,h+300);
+
+paper.rect(200,100,col.width,h).attr({stroke:'blue',"stroke-width":4});
+
+var w = col.width/( 2*l + 1 );  //width of the bar
+
+console.log ( w );
+
+px = 200;
+
+py = 100 + h;
+
+ paper.text(px-80,(py+100)/2,col.yAxis).attr({"font-size":20}).rotate(-90,px-80,(py+100)/2); 
+ 
+ var t = paper.text((2*px+col.width)/2, py+80, col.xAxis)
+                                                 .attr({"text-anchor": "middle"})
+                                                 .attr({"font-size":30});
+for(var i = 0 ; i <l ; i++)
+{
+
+	mvline ( px , py  );
+	
+	px = px + w;
+
+	if( h > max )
+
+	bar( px , py-(col.data[i].val *((h/max)-.2)) , w , col.data[i].val*((h/max)-.2), col.data[i].label, col.data[i].val);
+	
+	else
+
+	bar( px, py-(col.data[i].val /(( max/h)+.2)) , w , col.data[i].val/((max/h)+.2) , col.data[i].label, col.data[i].val );	
+	
+	px = px + w;
+	
+
+//	console.log((col.data[i].val /(( max/h)+1)));
+}
+ 
+
+
+                                                
+
+function bar(px , py , l , x , v, value)
+{
+
+	paper.rect ( px , py+8, l, x-8).attr({fill:"#590E15"});
+	
+	paper.text( px + l/2 , py + 10 +8, value ).attr({stroke:'yellow'});
+	
+	paper.text( px + l/2 , py + x + 20 , v).attr({"font-size":15});
+}
+
+function mvline( px , py )
+{
+
+paper.path( "M" + px + " " + py + "L" + px + " " + py );
+
+}
+
+}
+</script>
+
+    </head>
+    <body>
+        <div id="canvas_container"></div>
+
+    </body>
+</html>
