@@ -16,7 +16,7 @@ window.onload = function() {
 	       {
 	       	"width":700,
 	       	
-	       	"height":600,
+	       	"height":700,
 
 	       	"xAxis":"MONTHS",
 
@@ -25,35 +25,35 @@ window.onload = function() {
 	       	"data":[
 	       	        {
 	       	        	"label":"JAN",
-	       	        	"val":1000000
+	       	        	"val":200
 	       	        },
 	       	        {
 
 	       	        	"label":"FEB",
-	       	        	"val":1100000
+	       	        	"val":110
 	       	        },
 	       	        {
 
 	       	        	"label":"MARCH",
-	       	        	"val":1500000
+	       	        	"val":150
 	       	        },
 	       	        {
 
 	       	        	"label":"APRIL",
-	       	        	"val":8000000
+	       	        	"val":80
 	       	        },
 	       	        {
 
 	       	        	"label":"MAY",
-	       	        	"val":3000000
+	       	        	"val":30
 	       	        },
 	       	        {
 	       	        	"label":"JUNE",
-	       	        	"val":1500000
+	       	        	"val":150
 	       	        },
 	       	        {
 	       	        	"label":"JULY",
-	       	        	"val":1600000
+	       	        	"val":160
 	       	        }
 	       	       ]
 
@@ -80,9 +80,9 @@ var w = col.width/( 2*l + 1 );  //width of the bar
 
 console.log ( w );
 
-px = 200;
+px = p1x = 200;
 
-py = 100 + h;
+py = p1y = 100 + h;
 
  paper.text(px-80,(py+100)/2,col.yAxis).attr({"font-size":20}).rotate(-90,px-80,(py+100)/2); 
  
@@ -121,14 +121,39 @@ function bar(px , py , l , x , v, value)
 	
 	paper.text( px + l/2 , py + 10 +8, value ).attr({stroke:'yellow'});
 	
-	paper.text( px + l/2 , py + x + 20 , v).attr({"font-size":15});
+	paper.text( px + l/2 , py + x + 20 , v)
+	                                      .attr({"font-size":15})
+	                                      .rotate(-90 , px + l/2+6 , py + x + 30);
 }
 
-function mvline( px , py )
+function mvline( px , py  )
 {
 
 paper.path( "M" + px + " " + py + "L" + px + " " + py );
 
+}
+
+var k = max % 10;
+     
+    k = 10 - k;
+
+    k = max + k;
+
+    k = k / 5 ;
+
+    console.log(k);
+
+var dif=h / 5;
+
+var j;
+
+for( i = 0, j = 0; i<=5 ; i++ , j = j + k )
+{
+	paper.path( "M" + p1x + " " + p1y + "L" + (p1x+col.width) + " " + p1y );
+
+	 paper.text(p1x-20,p1y,j);
+
+	 p1y=p1y-dif;
 }
 
 }
